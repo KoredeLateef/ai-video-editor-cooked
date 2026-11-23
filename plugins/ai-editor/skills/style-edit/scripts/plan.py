@@ -2606,6 +2606,7 @@ def build(style, words, meta, images=(), aspect="auto", cuts=(), visuals=(), edi
         out = {**head, "layout": {"mode": "split", "ground": lay["ground"], "seam": seam, "art": art,
                                   "speaker": speaker_frame(face, seam, -(CUTOUT_BREAKOUT - 2) if lay.get("variant") == "cutout" else HEAD_ROOM),
                                   "caption_full_y": full_y,
+                                  **({"stroke": lay["stroke"]} if lay.get("stroke") else {}),
                                   **({"variant": "cutout", "breakout": CUTOUT_BREAKOUT} if lay.get("variant") == "cutout" else {})}}
     else:
         near = lambda c: c.get("lane") == "logo" and any(sc["start"] - 0.5 < c["end"] and c["start"] < sc["end"] + 0.5 for sc in scenes)

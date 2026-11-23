@@ -70,6 +70,7 @@ type Layout = {
   caption_full_y: number;
   variant?: "cutout"; // 50/50 cutout: the speaker's head rises out of the window onto the ground (matte.py cutouts)
   breakout?: number; // how far above the window's top edge, % of the frame
+  stroke?: { color: string; width: number }; // an outline round the speaker's window (px at 1080 wide)
 };
 // "letterbox": black 9:16, the landscape cut as a band, a title above it, one photo over the opening line. % of the frame.
 type Letterbox = {
@@ -436,7 +437,7 @@ export const StyleEdit: React.FC<Plan> = ({ video, captions, zooms, cards, layou
       {behindViews /* split: the panel art sits clear of the window; the cutout variant's head is drawn over it below */}
       {cardViews}
       <div style={{ position: "absolute", left: 0, top, width, height: height - top, overflow: "hidden",
-        borderRadius: `${r}px ${r}px 0 0`, boxShadow: o > 0 ? `0 ${-height * 0.004}px ${height * 0.02}px rgba(0,0,0,${0.12 * o})` : undefined }}>
+        borderRadius: `${r}px ${r}px 0 0`, ...(layout.stroke && o > 0 ? { boxSizing: "border-box" as const, border: `${layout.stroke.width * (width / 1080)}px solid ${layout.stroke.color}`, borderBottom: "none" } : {}), boxShadow: o > 0 ? `0 ${-height * 0.004}px ${height * 0.02}px rgba(0,0,0,${0.12 * o})` : undefined }}>
         <div style={{ position: "absolute", left: -(x / 100) * width * o, top: -(y / 100) * height * o, width: width * k,
           height: height * k, transform: `translateX(${footageX(t, cards, width, m)}px) scale(${zoomScale(t, zooms)})`, transformOrigin: `${origin[0]}% ${origin[1]}%` }}>
           {video ? <OffthreadVideo src={staticFile(video)} style={{ width: "100%", height: "100%", objectFit: "cover" }} /> : null}

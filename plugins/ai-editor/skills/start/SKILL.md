@@ -88,6 +88,10 @@ Do each step in order, skipping what is already done. Read each skill's SKILL.md
    images go first, `avoid` is enforced by plan.py. Letterbox (wide take, title on top):
    cut `--max-pause 0.5`, `--layout letterbox`.
    `skill=<skill>` on the job: step 5 is that skill, not style-edit (`references/home.md`, Skill style).
+   **The user's own look (local rule):** when the job's style is `mine`, `defaults` or `@links-11201046` ("New format", now the short-form IG reels skill; not another creator the user picked) and the
+   `short-form-ig-reels` skill exists, step 5 is that skill, not style-edit: invoke it with the Skill tool and follow its checklist
+   (`Templates/new-format/README-TEMPLATE.md` in the shared Drive folder). Its step 0, a constant-frame-rate source, comes
+   BEFORE the cut. A session that skips this produces the plain card edit, which is not what the user wants.
 
 Between steps say one line about what is next. Never ask the user to do a step the skill can do.
 

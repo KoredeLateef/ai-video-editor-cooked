@@ -67,8 +67,9 @@ def trim_filter(s, e, fps, vstart, total):
     keeps exactly e - s frames by count instead, repeating the last frame if the decode is one short."""
     t0, t1 = video_window(s, e, fps, vstart)
     if e < total:
-        return f"trim=start={max(0.0, t0):.6f}:end={t1:.6f},setpts=N/({fps})/TB"
-    return (f"trim=start={max(0.0, t0):.6f},setpts=N/({fps})/TB,"
+        return (f"fps={fps},trim=start={max(0.0, t0):.6f}:end={t1:.6f},setpts=N/({fps})/TB,"
+                f"tpad=stop_mode=clone:stop=1,trim=end_frame={e - s}")
+    return (f"fps={fps},trim=start={max(0.0, t0):.6f},setpts=N/({fps})/TB,"
             f"tpad=stop_mode=clone:stop=1,trim=end_frame={e - s}")
 
 
